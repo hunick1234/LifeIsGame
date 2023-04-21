@@ -1,0 +1,48 @@
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+  
+  .navbar-toggler {
+    display: block;
+  }
+  
+  .navbar-collapse {
+    background-color: #fff;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: scroll;
+    z-index: 999;
+    display: none;
+  }
+  
+  .navbar-nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-nav li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar-nav li:last-child {
+    border-bottom: none;
+  }
+  
+  .navbar-nav a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .navbar-toggler:focus + .navbar-collapse {
+    display: block;
+  }
+}
