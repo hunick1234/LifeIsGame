@@ -6,12 +6,12 @@ import (
 	//"github.com/gin-gonic/gin"
 	"net/http"
 
-	//"github.com/hunick1234/LIG/db"
+	//"github.com/hunick1234/LIG/controller"
 	"github.com/hunick1234/LIG/router"
 )
 
 func main() {
-	//db.Connext()
+	//controller.Connext()
 
 	server := &http.Server{
 		Addr:    ":8080",

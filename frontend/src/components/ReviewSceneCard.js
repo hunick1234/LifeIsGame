@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 
-const ReviewSceneCard = ({ scene, sceneType }) => {
+const ReviewSceneCard = ({ scene, sceneType,sceneTitle }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [text, setText] = useState("null!!");
@@ -18,9 +18,6 @@ const ReviewSceneCard = ({ scene, sceneType }) => {
     
   }
 
-  const reviewTitle=(t)=>{
-    setTitle(t)
-  }
   
   return (
     <>
@@ -28,7 +25,7 @@ const ReviewSceneCard = ({ scene, sceneType }) => {
         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
         <Card.Body>
           <Card.Title>{sceneType}</Card.Title>
-          <Card.Text>{"reviewText" }</Card.Text>
+          <Card.Text>{sceneTitle}</Card.Text>
           <Button variant="primary" onClick={handleShow}>
             edit
           </Button>

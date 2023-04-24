@@ -4,7 +4,7 @@ const HomeScreen=()=>{
     const [scenesList, useScenesList] =useState([]);
     return(
         <div>
-            this is Home
+            {/* this is Home view game list */}
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import ScenesWrapper from "../components/ScenesWrapper";
 import { Button } from "react-bootstrap";
-import styles from '../assets/css/CreatGame.moudle.css'
+import styles from "../assets/css/creatGame.module.css";
 
 //根據輸入 決定頁面
 /**
@@ -22,7 +22,8 @@ const CreatGameScreen = () => {
 
   return (
     <>
-    <div className={styles.back} >
+   
+    <div className={` CreatGameScreen back row`} id ='df' >
       {levellist.map((key,index) => (
         console.log(key),
         <div key={key} className='col-xl-3'>

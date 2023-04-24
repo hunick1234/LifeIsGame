@@ -5,6 +5,7 @@ import React, { useState } from "react";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPasswoed] = useState("");
+  const [account, setAccount] = useState("");
 
   const submitHandler = async (e) => { 
     e.preventDefault();
@@ -12,6 +13,7 @@ const LoginScreen = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        account,
         email,
         password,
       }),
@@ -43,6 +45,18 @@ const LoginScreen = () => {
           value={password}
           onChange={(e) => {
             setPasswoed(e.target.value);
+          }}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicAccount">
+        <Form.Label>account</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter your account name"
+          value={account}
+          onChange={(e) => {
+            setAccount(e.target.value);
           }}
         />
       </Form.Group>

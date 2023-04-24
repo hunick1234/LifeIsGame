@@ -16,7 +16,7 @@ func Router() *gin.Engine {
 	r.Use(gin.Logger()) // 日志
 	r.Use(Cors())       // 跨域请求
 
-	//r.Use(gin.Recovery())
+	r.Use(gin.Recovery())
 	gin.SetMode(gin.DebugMode)
 
 	apiV1 := r.Group("api/v1")
@@ -36,7 +36,11 @@ func Router() *gin.Engine {
 		})
 	})
 	apiV1.POST("/game/:levelId/scene") //add new sence in game
-	apiV1.POST("/login", v1.Login)
+
+	{
+		apiV1.POST("/login", v1.GetUser)
+		apiV1.POST("/singin", v1.CreatUser)
+	}
 
 	return r
 }
