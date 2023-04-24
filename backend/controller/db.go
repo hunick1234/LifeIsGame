@@ -6,7 +6,6 @@ import (
 	"log"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -14,10 +13,9 @@ import (
 var CONNECT_TIME = 10 * time.Second
 
 type DBConnect struct {
-	client   *mongo.Client
-	Db       *mongo.Database
+	Client   *mongo.Client
+	DBClient *mongo.Database
 	DBName   string
-	DoceName string
 }
 
 /*
@@ -26,18 +24,24 @@ name[0] = db name
 name[1] = doucment name
 */
 func NewDBConnect(name ...string) *DBConnect {
-	return &DBConnect{DBName: name[0], DoceName: name[1]}
+	return &DBConnect{DBName: name[0]}
 }
 
 func (db *DBConnect) Connect() {
 	var err error
+	// ctx, cancel := context.WithTimeout(context.Background(), CONNECT_TIME)
+	// defer cancel()
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-	db.client, err = mongo.Connect(context.TODO(), clientOptions)
+	db.Client, err = mongo.NewClient(clientOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
-	collection := db.client.Database(db.DBName).Collection(db.DoceName)
-	collection.InsertOne(context.TODO(), bson.D{})
+	err = db.Client.Connect(context.Background())
+	if err != nil {
+		// 處理錯誤
+	}
+	db.DBClient = db.Client.Database(db.DBName)
+
 }
 
 func Connext() {
