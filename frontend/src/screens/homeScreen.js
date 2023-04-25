@@ -5,6 +5,7 @@ const HomeScreen=()=>{
     return(
         <div>
             {/* this is Home view game list */}
+            home
         </div>
     )
 }

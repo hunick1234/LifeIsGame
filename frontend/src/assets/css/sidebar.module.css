@@ -1,11 +1,14 @@
 /* Sidebar 的 CSS 樣式 */
 :global(.sidebar){
     position: fixed; /* 設置為固定定位 */
-    top: 0; /* 距離頂部的距離 */
+    top: 10%; /* 距離頂部的距離 */
     left: 0; /* 距離左側的距離 */
-    width: 200px; /* 側邊欄的寬度 */
+    width: 150px; /* 側邊欄的寬度 */
     height: 100%; /* 側邊欄的高度 */
     background-color: #f0f0f0; /* 側邊欄的背景顏色 */
     /* 可以添加其他的樣式，例如邊框、字體大小、顏色等 */
   }
   
+  @media (min-width: 540px) {
+    
+  }

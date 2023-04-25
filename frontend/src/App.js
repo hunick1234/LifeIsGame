@@ -10,34 +10,30 @@ import SingupScreen from "./screens/SingupScreen";
 import HomeScreen from "./screens/homeScreen";
 import CreatGameScreen from "./screens/CreatGameScreen";
 import GameSidebare from "./components/pageComponets/gameSidebar";
+import BackStageLayout from "./components/pageComponets/backStageLayout";
+import Navigator from "./components/pageComponets/navigator";
+import NotFound from "./components/pageComponets/notFound";
+import Layout from "./components/pageComponets/layout";
+import useAuth from "./hook/useAuth";
 
 const App = () => {
+  //const [auth,dispath]=useAuth()
   return (
     <>
-      <Header />
       <main>
         <Routes>
-          <Route element={<HomeScreen />} path={"/"} />
-          <Route element={<LoginScreen />} path={"/login"} />
-          <Route element={<SingupScreen />} path={"/singup"} />
-          <Route
-            element={
-              <>
-                <div className="row">
-                  <div className="col-2">
-                  <GameSidebare />
-                  </div>
-                  <div className="col">
-                  <CreatGameScreen></CreatGameScreen>
-                  </div>
-                </div>
-              </>
-            }
-            path={"/creatGame"}
-          />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomeScreen />} />
+            <Route element={<LoginScreen />} path={"/login"} />
+            <Route element={<SingupScreen />} path={"/singup"} />
+          </Route>
+
+          
+          <Route element={<CreatGameScreen />} path={"/creatGame"} />
+          <Route element={<Navigator />} path="n" />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <Footer />
     </>
   );
 };
