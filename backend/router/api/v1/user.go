@@ -15,6 +15,10 @@ func Login(ctx *gin.Context) {
 	})
 }
 
+func Singin(c *gin.Context) {
+
+}
+
 func CreatUser(c *gin.Context) {
 	json := &models.User{}
 	c.BindJSON(json)
@@ -26,9 +30,12 @@ func CreatUser(c *gin.Context) {
 }
 
 func GetUser(c *gin.Context) {
-	models.GetUser()
+	u, err := models.GetUser()
+	if err != nil {
+
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "send ok",
+		"info": u,
 	})
 }
 

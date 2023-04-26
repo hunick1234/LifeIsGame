@@ -20,26 +20,21 @@ func Router() *gin.Engine {
 	gin.SetMode(gin.DebugMode)
 
 	apiV1 := r.Group("api/v1")
-	apiV1.GET("/gameList", func(c *gin.Context) {})         //response all game
-	apiV1.GET("/gameList/:userId", func(c *gin.Context) {}) //response 指定 user game
 
 	apiV1.PUT("/:userid/:gameid/", func(c *gin.Context) {}) //response 完整遊戲內容
 
-	apiV1.GET("/test", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
+	apiV1.GET("/game", v1.GetGame) //response all game
+	apiV1.GET("game/:gameid")      //response 指定 game
+
 	apiV1.POST("/game", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "send ok",
 		})
 	})
-	apiV1.POST("/game/:levelId/scene") //add new sence in game
 
 	{
-		apiV1.POST("/login", v1.GetUser)
-		apiV1.POST("/singin", v1.CreatUser)
+		apiV1.POST("/login", v1.Login)
+		apiV1.POST("/singin", v1.Singin)
 	}
 
 	return r
