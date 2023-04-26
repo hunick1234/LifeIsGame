@@ -22,7 +22,7 @@ const App = () => {
     <>
       <main>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<BackStageLayout />}>
             <Route index element={<HomeScreen />} />
             <Route element={<LoginScreen />} path={"/login"} />
             <Route element={<SingupScreen />} path={"/singup"} />
