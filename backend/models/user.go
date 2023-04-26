@@ -19,15 +19,15 @@ type Account struct {
 	Password    string `json:"password" bson:"password"` //encod
 }
 
-var connectDB controller.DBConnect
+var UserDB controller.DBConnect
 
 func init() {
-	connetUserDB()
+	connectUserDB()
 }
 
-func connetUserDB() {
-	connectDB = *controller.NewDBConnect("user")
-	connectDB.Connect()
+func connectUserDB() {
+	UserDB = *controller.NewDBConnect("user")
+	UserDB.Connect()
 }
 
 func GetUser() *User {
@@ -36,12 +36,12 @@ func GetUser() *User {
 }
 
 func (u *User) InsertOneUser() error {
-	collection := connectDB.DBClient.Collection("user")
+	collection := UserDB.DBClient.Collection("user")
 
 	_, err := collection.InsertOne(context.Background(), u)
 
 	defer func() {
-		err = connectDB.Client.Disconnect(context.Background())
+		err = UserDB.Client.Disconnect(context.Background())
 		if err != nil {
 			log.Print("err", err)
 		}
