@@ -1,9 +1,10 @@
-package controller
+package models
 
 import (
 	"context"
 	"fmt"
 	"log"
+	"sync"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -16,6 +17,7 @@ type DBConnect struct {
 	Client   *mongo.Client
 	DBClient *mongo.Database
 	DBName   string
+	lock     sync.Locker
 }
 
 /*
