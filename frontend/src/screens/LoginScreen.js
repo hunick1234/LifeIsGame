@@ -1,22 +1,33 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { LOGIN } from "../API";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
-  const [password, setPasswoed] = useState("");
-  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const submitHandler = async (e) => { 
+  const submitHandler = async (e) => {
     e.preventDefault();
-    await fetch("http://127.0.0.1:8080/login", {
+    await fetch(LOGIN, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        account,
-        email,
-        password,
+        account: {
+          email: email,
+          password: password,
+        },
       }),
+    }).then((res) => {
+      console.log(res);
+      if (!res.ok) {
+        console.log("login false");
+        return 
+      }
+
+      navigate("/games", { replace: true });
     });
   };
 
@@ -27,10 +38,7 @@ const LoginScreen = () => {
         <Form.Control
           type="email"
           placeholder="Enter email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
@@ -42,22 +50,7 @@ const LoginScreen = () => {
         <Form.Control
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => {
-            setPasswoed(e.target.value);
-          }}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicAccount">
-        <Form.Label>account</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter your account name"
-          value={account}
-          onChange={(e) => {
-            setAccount(e.target.value);
-          }}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
