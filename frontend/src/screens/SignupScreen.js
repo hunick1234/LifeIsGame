@@ -1,35 +1,27 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import React, { useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { LOGIN } from "../API";
+import { SIGNUP } from "../API";
 
-const LoginScreen = () => {
+const SignupScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [account, setAccount] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await fetch(LOGIN, {
+    await fetch(SIGNUP, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-
-      credentials: "include",
       body: JSON.stringify({
         account: {
+          account_name:account,
           email: email,
+          //encrypted password? 
           password: password,
         },
+      
       }),
-    }).then((res) => {
-      console.log(res);
-      if (!res.ok) {
-        console.log("login false");
-        return;
-      }
-
-      navigate("/home", { replace: true });
     });
   };
 
@@ -55,6 +47,15 @@ const LoginScreen = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicAccount">
+        <Form.Label>account</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter your account name"
+          onChange={(e) => setAccount(e.target.value)}
+        />
+      </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
@@ -65,4 +66,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
