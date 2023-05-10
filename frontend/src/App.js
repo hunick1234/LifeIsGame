@@ -6,15 +6,18 @@ import Footer from "./components/pageComponets/footer";
 import "./App.css";
 
 import LoginScreen from "./screens/LoginScreen";
-import SingupScreen from "./screens/SingupScreen";
+import SignupScreen from "./screens/SignupScreen";
 import HomeScreen from "./screens/homeScreen";
 import CreatGameScreen from "./screens/CreatGameScreen";
-import GameSidebare from "./components/pageComponets/gameSidebar";
-import BackStageLayout from "./components/pageComponets/backStageLayout";
-import Navigator from "./components/pageComponets/navigator";
+import UserLayout from "./components/pageComponets/userLayout";
 import NotFound from "./components/pageComponets/notFound";
 import Layout from "./components/pageComponets/layout";
 import useAuth from "./hook/useAuth";
+import GameListScreen from "./screens/GameListScreen";
+import GamePage from "./components/page/gamePage";
+import LogoutScreen from "./screens/logoutScreen";
+import BackStageScreen from "./screens/backStageScreen";
+import SettingPage from "./components/page/settingPage";
 
 const App = () => {
   //const [auth,dispath]=useAuth()
@@ -22,16 +25,24 @@ const App = () => {
     <>
       <main>
         <Routes>
-          <Route path="/" element={<BackStageLayout />}>
+          <Route path="/" element={<Layout />}>
             <Route index element={<HomeScreen />} />
-            <Route element={<LoginScreen />} path={"/login"} />
-            <Route element={<SingupScreen />} path={"/singup"} />
+            <Route path={"login"} element={<LoginScreen />} />
+            <Route path={"logout"} element={<LogoutScreen />} />
+            <Route element={<SignupScreen />} path={"singup"} />
+            <Route element={<GameListScreen />} path={"games"} />
+            <Route element={<GamePage />} path={"games/:gameid"} />
+          </Route>
+          <Route path="/user" element={<UserLayout />}>
+            <Route index element={<CreatGameScreen />} />
+            <Route path="games" element={<CreatGameScreen />} />            
+            <Route path="setting" element={<SettingPage />} />
+           
           </Route>
 
-          
-          <Route element={<CreatGameScreen />} path={"/creatGame"} />
-          <Route element={<Navigator />} path="n" />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Layout />}>
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </main>
     </>
