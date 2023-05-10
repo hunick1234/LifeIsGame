@@ -1,0 +1,23 @@
+.leftbar {
+  float: left;
+  width: 7%; /* 左侧区域宽度 */
+  box-shadow: none;
+  overflow-y: auto;
+  display: flex;
+  height: 100%;
+  flex: 1 0 auto;
+  z-index: 1200;
+  position: fixed;
+  top: 0px;
+  outline: 0px;
+  left: 0px;
+  border-right: 1px solid rgba(32, 63, 4, 0.12);
+
+  color: white;
+}
+
+.main {
+  /* 右侧区域样式 */
+  float: right;
+  width: 90%; /* 右侧区域宽度 */
+}

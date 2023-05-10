@@ -1,14 +1,80 @@
 /* Sidebar 的 CSS 樣式 */
-:global(.sidebar){
-    position: fixed; /* 設置為固定定位 */
-    top: 10%; /* 距離頂部的距離 */
-    left: 0; /* 距離左側的距離 */
-    width: 150px; /* 側邊欄的寬度 */
-    height: 100%; /* 側邊欄的高度 */
-    background-color: #f0f0f0; /* 側邊欄的背景顏色 */
-    /* 可以添加其他的樣式，例如邊框、字體大小、顏色等 */
-  }
-  
-  @media (min-width: 540px) {
-    
-  }
+
+
+:global(.navbar) {
+  background-color: #ffffff;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+:global(.menu-bars) {
+  /* margin-left: 1rem; */
+  font-size: 2rem;
+  background: none;
+  color: #000;
+}
+
+:global(.nav-menu) {
+  background-color: #ffffff;
+  width: 170px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+}
+
+:global(.nav-menu.active) {
+  left: 0;
+  transition: 200ms;
+}
+
+:global(.nav-text) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 60px;
+}
+
+:global(.nav-text a) {
+  text-decoration: none;
+  color: #151414;
+  font-size: 18px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+:global(.nav-text a:hover) {
+  background-color: #000000;
+  color: #fff;
+}
+
+:global(.nav-menu-items) {
+  width: 100%;
+}
+
+:global(.navbar-toggle) {
+  background-color: #ffffff;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+:global(span) {
+  margin-left: 16px;
+}
+
+@media (min-width: 540px) {
+}
