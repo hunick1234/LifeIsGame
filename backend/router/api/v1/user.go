@@ -5,48 +5,81 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	//"github.com/hunick1234/LIG/middleware/session"
+	"github.com/hunick1234/LIG/middleware/session"
 	"github.com/hunick1234/LIG/models"
 )
 
-func Login(ctx *gin.Context) {
+func Logout(c *gin.Context) {
+	session.ClearSession(c)
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "send ok",
+	c.JSON(http.StatusOK, gin.H{
+		"message": "logout",
+	})
+}
+
+func Login(c *gin.Context) {
+	if session.CheckSession(c) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "u are login now ",
+		})
+		return
+	}
+
+	user := &models.User{}
+
+	c.BindJSON(user)
+	if !user.IsUser() {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"erreo": "password or account error ",
+		})
+		return
+	}
+
+	user.UpadateUserSessionID()
+	session.SaveSession(c, user.SessionID)
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "login success",
 	})
 }
 
 func Singin(c *gin.Context) {
 
-}
-
-func CreatUser(c *gin.Context) {
-	json := &models.User{}
-	c.BindJSON(json)
-	log.Print(json)
-	json.InsertOneUser()
-	c.JSON(http.StatusOK, gin.H{
-		"json": *json,
-	})
-}
-
-func GetUser(c *gin.Context) {
-	u, err := models.GetUser()
-	if err != nil {
-
+	user := &models.User{}
+	c.BindJSON(user)
+	if !user.IsUserVaild() {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "have user",
+		})
+		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"info": u,
-	})
+
+	err := user.CreatUser()
+	if err != nil {
+		log.Print(err)
+	}
+	//session := sessions.Default(c)
+	//c.SetCookie("cookie_name", "cookie_value", 3600, "/", "localhost", false, true)
 }
 
-func AddUser() {
+func CreatUser() {
 
 }
 
-func UpdateUser() {
-
+func UpdateUser(c *gin.Context) {
+	id := models.GetUserID(session.GetSession(c))
+	user := &models.User{Id: id}
+	c.BindJSON(user)
 }
 
 func RemoveUser() {
 
+}
+
+func GetUserInfo(c *gin.Context) {
+	id := session.GetSession(c)
+	c.JSON(http.StatusOK, gin.H{
+		"message": id,
+	})
 }

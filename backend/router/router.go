@@ -19,16 +19,22 @@ func Router() *gin.Engine {
 	gin.SetMode(gin.DebugMode)
 
 	apiV1 := r.Group("api/v1")
+	user := apiV1.Group("/user")
 
 	apiV1.POST("/login", v1.Login)
 	apiV1.POST("/singin", v1.Singin)
-	apiV1.GET("/games", v1.GetGame) //response all game
+	apiV1.GET("/games", v1.GetGameList) //response all game
+	apiV1.GET("/games/:gameid", v1.GetGameInfo)
 
-	apiV1.Use(session.AuthSession())
+	user.Use(session.AuthSession())
 	{
-		apiV1.PUT("/:userid/:gameid/", func(c *gin.Context) {}) //response 完整遊戲內容
-		apiV1.GET("/userInfo", v1.GetUserInfo)
-		apiV1.GET("game/:gameid") //response 指定 game
+		user.GET("/userInfo", v1.GetUserInfo)
+		user.GET("/logout", v1.Logout)
+		user.GET("/games", v1.GetUserGameList) //response uer's games\
+		user.POST("/games/:gameid", v1.CreatGame)
+		user.DELETE("/games/:gameID", v1.DeleteGame) //if user has game delet game else return error
+		user.PUT("/games/:gameID/:levelID")
+		user.PUT("/games/:gameID/:levelID/senceID")
 	}
 
 	return r
