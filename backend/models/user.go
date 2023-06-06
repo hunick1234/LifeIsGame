@@ -169,6 +169,7 @@ func (u *User) IsUser() bool { //user 是否登入正確
 			}
 		}
 		u.Id = result["_id"].(string)
+		u.AcconutName = result["account_name"].(string)
 		return true
 	}
 

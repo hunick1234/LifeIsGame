@@ -20,6 +20,7 @@ func Router() *gin.Engine {
 
 	apiV1 := r.Group("api/v1")
 	user := apiV1.Group("/user")
+	player := apiV1.Group("/player")
 
 	apiV1.POST("/login", v1.Login)
 	apiV1.POST("/singin", v1.Singin)
@@ -28,13 +29,30 @@ func Router() *gin.Engine {
 
 	user.Use(session.AuthSession())
 	{
+		//TODO only access user can delet/creat game level scene
 		user.GET("/userInfo", v1.GetUserInfo)
 		user.GET("/logout", v1.Logout)
+		// user.GET("/:levelID/scenes", v1.GetLevelScenes) //response level info
 		user.GET("/games", v1.GetUserGameList) //response uer's games\
-		user.POST("/games/:gameid", v1.CreatGame)
-		user.DELETE("/games/:gameID", v1.DeleteGame) //if user has game delet game else return error
-		user.PUT("/games/:gameID/:levelID")
-		user.PUT("/games/:gameID/:levelID/senceID")
+		user.POST("/edit/:gameID", v1.CreatGame)
+		user.DELETE("/edit/:gameID", v1.DeleteGame) //if user has game delet game else return error
+		user.PUT("/edit/:gameID", v1.UpdateGame)
+
+		user.GET("/:gameID/levels", v1.GetLevels)
+		user.POST("/edit/:gameID/:levelID", v1.CreatLevel)
+		user.DELETE("/edit/:gameID/:levelID", v1.DeleteLevel)
+		user.PUT("/edit/:gameID/:levelID")
+
+		user.GET("/level/:levelID/scenes", v1.GetScenes)
+		user.POST("/edit/levels/:levelID/:sceneID", v1.CreatScene)
+		user.DELETE("/edit/levels/:levelID/:sceneID", v1.DeleteScene)
+		user.PUT("/edit/levels/:levelID/:sceneID", v1.UpdateScene)
+	}
+
+	player.Use(session.AuthSession())
+	{
+		player.GET("/download")
+		player.GET("/play")
 	}
 
 	return r
