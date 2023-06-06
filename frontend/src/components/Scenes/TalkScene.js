@@ -1,5 +1,7 @@
 /**
- * 此為對話內容顯示畫面
+ * 此為製作對話內容顯示畫面
+ * 選擇說話人物  輸入內容
+ * 是否新增下句對話
  */
 
 import React, { useState } from "react";
@@ -9,6 +11,7 @@ import { Form } from "react-bootstrap";
 const TalkScene = ({ reviewTitle, sdf }) => {
   const [title, setTitle] = useState("talkScene");
   const [talkContext, setTalkContext] = useState("");
+  const [talker,setTalker]=useState("")
   const submitHandler = async (e) => {
     e.preventDefault();
     await fetch("http://127.0.0.1:8080/api/v1/game", {
@@ -20,8 +23,6 @@ const TalkScene = ({ reviewTitle, sdf }) => {
       }),
     });
   };
-
-  const submitSaveHandler = (e) => {};
 
   const reTitle = (params) => {
     setTitle(params);

@@ -1,5 +1,8 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import UserPopover from "./UserPopover";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 import "../../assets/css/header.css";
 function Header(prop) {
   return (
@@ -9,13 +12,11 @@ function Header(prop) {
           <Navbar.Brand>LIG</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/login">LogIn</Nav.Link>
-            <Nav.Link href="/singup">Singup</Nav.Link>
-            <Nav.Link href="/creatGame">creatGame</Nav.Link>
-            <Nav.Link href="/gameList">gameList</Nav.Link>
-            <Nav.Link href="/backstage">backstage</Nav.Link>
+            <Nav.Link href="/games">game list</Nav.Link>
           </Nav>
         </Container>
+        <UserPopover isLogin={true}/>
+  
       </Navbar>
     </>
   );

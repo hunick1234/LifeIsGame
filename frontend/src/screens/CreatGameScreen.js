@@ -4,6 +4,7 @@ import ScenesWrapper from "../components/ScenesWrapper";
 import { Button } from "react-bootstrap";
 import styles from "../assets/css/creatGame.module.css";
 import { GET_USERINFO } from "../API";
+import shortid from "shortid";
 
 //根據輸入 決定頁面
 /**
@@ -29,22 +30,29 @@ const CreatGameScreen = () => {
   const [levellist, setLevellist] = useState([]);
   const [title, setTitle] = useState("關卡名稱");
   const creatLevel = () => {
-    setLevellist([...levellist, { title: 0 }]);
+    let id = shortid.generate();
+    setLevellist([...levellist, { title: 0, id: id }]);
   };
 
+  //delet level
+  const deleteLevel = (id) => {
+    const reLevel = levellist.filter((level) => id !== level.id);
+    setLevellist(reLevel);
+  };
   return (
     <>
-      <div className={` CreatGameScreen back row`} id="df">
-        {levellist.map(
-          (key, index) => (
-            console.log(key),
-            (
-              <div key={key} className="col-xl-3">
-                <ScenesWrapper title={title}></ScenesWrapper>
-              </div>
-            )
-          )
-        )}
+      <div className={`CreatGameScreen back row`} id="df">
+        {levellist.map((key, index) => (
+          <div key={key.id} className="col-xl-3">
+            {console.log(key)}
+            <ScenesWrapper
+              key={key.id}
+              id={key.id}
+              title={title}
+              deleteLevelListener={deleteLevel}
+            ></ScenesWrapper>
+          </div>
+        ))}
       </div>
       <Button onClick={creatLevel}>新關卡</Button>
     </>

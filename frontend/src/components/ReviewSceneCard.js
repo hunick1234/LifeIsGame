@@ -1,27 +1,27 @@
-import React,{ useState } from "react";
-import Delet from './delet'
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 
-const ReviewSceneCard = ({ scene, sceneType,sceneTitle }) => {
+const ReviewSceneCard = ({ id,scene, sceneType, sceneTitle,deleteScenesListener }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const [text, setText] = useState("null!!");
+  const [reviewtext, setReviewText] = useState("null!!");
   const [title, setTitle] = useState("null!!");
 
   const handleShow = () => {
     setShow(true);
     // setReviewText(scene.props)
   };
-  const delet=()=>{
-    
-  }
+  const delet = (e) => {
+    e.preventDefault();
+    deleteScenesListener(id)
 
-  
+  };
+
   return (
     <>
-      <Card style={{ width: "10rem" ,height: "10rem"}}>
+      <Card style={{ width: "10rem", height: "10rem" }}>
         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
         <Card.Body>
           <Card.Title>{sceneType}</Card.Title>

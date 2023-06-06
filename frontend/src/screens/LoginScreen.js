@@ -1,20 +1,21 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { LOGIN } from "../API";
-
+import useUserInfo from "../hook/useUserInfo";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const { userInfo, setUserInfo } = useUserInfo();
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    await fetch(LOGIN, {
+    const respon = await fetch(LOGIN, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-
       credentials: "include",
       body: JSON.stringify({
         account: {
@@ -22,15 +23,12 @@ const LoginScreen = () => {
           password: password,
         },
       }),
-    }).then((res) => {
-      console.log(res);
-      if (!res.ok) {
-        console.log("login false");
-        return;
-      }
-
-      navigate("/home", { replace: true });
     });
+
+    let data = await respon.json();
+    console.log("data",data);
+    setUserInfo(data.info)
+    navigate("/", { replace: true });
   };
 
   return (

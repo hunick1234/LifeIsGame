@@ -3,7 +3,7 @@
 
 :global(.navbar) {
   background-color: #ffffff;
-  height: 80px;
+  height: 40px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -18,19 +18,19 @@
 
 :global(.nav-menu) {
   background-color: #ffffff;
-  width: 170px;
+  width: 10em;
   height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 0;
+  top: 1em;
   left: -100%;
-  transition: 850ms;
+  transition: 550ms;
 }
 
 :global(.nav-menu.active) {
   left: 0;
-  transition: 200ms;
+  transition: 100ms;
 }
 
 :global(.nav-text) {
@@ -77,4 +77,8 @@
 }
 
 @media (min-width: 540px) {
+  :global(.navbar-toggle) {
+    display: none;
+  }
+
 }

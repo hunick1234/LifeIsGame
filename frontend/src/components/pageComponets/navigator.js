@@ -10,13 +10,10 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import DnsRoundedIcon from "@mui/icons-material/DnsRounded";
-import PermMediaOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActual";
-import PublicIcon from "@mui/icons-material/Public";
 import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernet";
-import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
-import TimerIcon from "@mui/icons-material/Timer";
+
 import SettingsIcon from "@mui/icons-material/Settings";
-import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
+
 import { Link } from "react-router-dom";
 
 const categories = [
@@ -27,9 +24,14 @@ const categories = [
         id: "Authentication",
         icon: <PeopleIcon />,
         active: true,
-        link:"Authentication"
+        link: "Authentication",
       },
-      { id: "Database", icon: <DnsRoundedIcon />, active: true,link:"database" },
+      {
+        id: "Database",
+        icon: <DnsRoundedIcon />,
+        active: true,
+        link: "database",
+      },
       { id: "Your Game", icon: <SettingsEthernetIcon />, active: false },
     ],
   },
@@ -76,9 +78,14 @@ export default function Navigator(props) {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active,link }) => (
+            {children.map(({ id: childId, icon, active, link }) => (
               <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item} component={Link} to={`/backstage/${link}`}>
+                <ListItemButton
+                  selected={active}
+                  sx={item}
+                  component={Link}
+                  to={`/backstage/${link}`}
+                >
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText>{childId}</ListItemText>
                 </ListItemButton>

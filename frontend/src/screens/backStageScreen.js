@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -173,6 +173,18 @@ export default function BackStageScreen() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      let pgaeInfo = await fetch("http://127.0.0.1:8080/api/v1/users/:id", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      return pgaeInfo;
+    }
+    fetchData();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

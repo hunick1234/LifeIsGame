@@ -1,9 +1,5 @@
 #  LIG 立刻 趣
 ---
-> Life is a game ->LIG
-> 延伸 紀錄日常的[每一件事]舉凡我剛吃了什麼 我剛寫完作業 我剛在發呆....
-> 這些資訊會被轉為 遊戲資訊 腳色會隨著憶起成長 遊戲裡也會由其他事件 就如同MMORPG RPG 可以去玩 [詳細][LIG life game app](/Mg5xN4iJRXmwioLo52XNdg)
-
 ## todo
 - [ ] https server
 
