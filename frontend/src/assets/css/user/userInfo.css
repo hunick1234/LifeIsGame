@@ -1,0 +1,39 @@
+.user-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .user-stats {
+    margin-top: 20px;
+  }
+  
+  .user-stats ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .user-stats ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* 其他樣式設定... */
+  

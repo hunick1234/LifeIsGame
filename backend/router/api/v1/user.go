@@ -35,7 +35,6 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-
 	user.UpadateUserSessionID()
 	session.SaveSession(c, user.SessionID)
 

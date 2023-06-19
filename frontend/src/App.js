@@ -2,19 +2,21 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import LoginScreen from "./screens/LoginScreen";
-import SignupScreen from "./screens/SignupScreen";
-import HomeScreen from "./screens/homeScreen";
+import LoginScreen from "./page/Login";
+import SignupScreen from "./page/Signup";
 import UserLayout from "./components/pageComponets/userLayout";
 import NotFound from "./components/pageComponets/notFound";
 import Layout from "./components/pageComponets/layout";
-import GamePage from "./components/page/gamePage";
-import LogoutScreen from "./screens/logoutScreen";
-import UserInfoPage from "./components/page/userInfoPage";
-import EditGamePage from "./components/page/editGamePage";
-import GameListPage from "./components/page/GameListPage";
-import UserGameListPage from "./components/page/UserGameListPage";
+import GamePage from "./page/gamePage";
+import LogoutScreen from "./page/Logout";
+import User from "./page/user/user";
+import EditGamePage from "./page/editGamePage";
+import GameListPage from "./page/GameListPage";
+import UserGameListPage from "./page/UserGameListPage";
 import { Container } from "@mui/material";
+
+import PlayGame from "./page/play/playGame";
+import Home from "./page/home/home";
 
 const App = () => {
   //const [auth,dispath]=useAuth()
@@ -22,7 +24,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomeScreen />} />
+          <Route index element={<Home />} />
           <Route path={"login"} element={<LoginScreen />} />
           <Route path={"logout"} element={<LogoutScreen />} />
           <Route element={<SignupScreen />} path={"singup"} />
@@ -30,10 +32,11 @@ const App = () => {
           <Route element={<GamePage />} path={"games/:gameid"} />
         </Route>
         <Route path="/user" element={<UserLayout />}>
-          <Route index element={<UserInfoPage />} />
+          <Route index element={<User />} />
           <Route path="games" element={<UserGameListPage />} />
           <Route path="edit/:gameid" element={<EditGamePage />} />
         </Route>
+        <Route path="/play/:gameid" element={<PlayGame />} />
 
         <Route path="*" element={<Layout />}>
           <Route path="*" element={<NotFound />} />

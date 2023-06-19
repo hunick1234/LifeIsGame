@@ -20,7 +20,7 @@ export const DELET_Level = (levelID, gameID) => {
 };
 
 export const GET_SCENES = (levelID) => {
-  return `http://127.0.0.1:8080/api/v1/user/${levelID}/scenes`;
+  return `http://127.0.0.1:8080/api/v1/user/level/${levelID}/scenes`;
 };
 export const POST_SCENE = (sceneID, levelID) => {
   return `http://127.0.0.1:8080/api/v1/user/edit/levels/${levelID}/${sceneID}`;
@@ -32,3 +32,5 @@ export const DELET_SCENE = (sceneID, levelID) => {
 export const LOGIN = "http://127.0.0.1:8080/api/v1/login";
 export const SIGNUP = "http://127.0.0.1:8080/api/v1/singin";
 export const LOGOUT = "http://127.0.0.1:8080/api/v1/user/logout";
+
+export const PLAY_GAME = "http://127.0.0.1:8080/api/v1/player/play";

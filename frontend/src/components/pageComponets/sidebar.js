@@ -3,7 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { UserSidebarData } from "./userSidebarData";
-import Styles from "D:\\LIG/frontend/src/assets/css/sidebar.module.css";
+import Styles from '../../assets/css/sidebar.module.css'
 import { IconContext } from "react-icons";
 import UserPopover from "./UserPopover";
 

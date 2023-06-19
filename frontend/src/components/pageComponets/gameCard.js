@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { DELET_GAME } from "../../API";
 
 import {
@@ -47,7 +47,8 @@ const StyleTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
-const GameCard = ({ name, id, intro, isEdit, deletListener }) => {
+const GameCard = ({ game,isEdit }) => {
+  const { game_name, id, game_intro, is_upload, deletListener } = game;
   const deletGame = async (e) => {
     e.preventDefault();
 
@@ -78,7 +79,7 @@ const GameCard = ({ name, id, intro, isEdit, deletListener }) => {
     return text.substr(0, maxLength) + "...";
   };
 
-  const truncatedIntro = truncateText(intro, 20);
+  const truncatedIntro = truncateText(game_intro, 20);
   return (
     <>
       <Grid item xs={10} sm={6} md={4} lg={3} key={id}>
@@ -92,10 +93,10 @@ const GameCard = ({ name, id, intro, isEdit, deletListener }) => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {name}
+              {`${game_name}`}
             </Typography>
             <Typography variant="body2" color="text.secondary" noWrap>
-              {`${intro}`}
+              {`${game_intro}`}
             </Typography>
 
             <Typography variant="body2" color="text.secondary">

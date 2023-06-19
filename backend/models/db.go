@@ -12,6 +12,9 @@ import (
 
 var CONNECT_TIME = 10 * time.Second
 
+// var MONGO_URL = os.Getenv("MONGO_URL")
+const MONGO_URL = "mongodb://localhost:27017"
+
 type DBConnect struct {
 	Client   *mongo.Client
 	DBClient *mongo.Database
@@ -32,7 +35,7 @@ func (db *DBConnect) Connect() {
 	var err error
 	// ctx, cancel := context.WithTimeout(context.Background(), CONNECT_TIME)
 	// defer cancel()
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI(MONGO_URL)
 	db.Client, err = mongo.NewClient(clientOptions)
 	if err != nil {
 		log.Fatal(err)

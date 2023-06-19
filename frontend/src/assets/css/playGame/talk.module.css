@@ -1,0 +1,25 @@
+.dialogueContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dialogueBox {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  align-items: flex-end;
+}
+
+.characterName {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.clickArea {
+  /* 擴展 clickArea 的樣式 */
+}

@@ -4,64 +4,117 @@
  * 是否新增下句對話
  */
 
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import { Form } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import {
+  Dialog,
+  Button,
+  TextField,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Select,
+  Container,
+  MenuItem,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { POST_SCENE } from "../../API";
 
-const TalkScene = ({ reviewTitle, sdf }) => {
+const TalkScene = ({ info, onSave, handelSave }) => {
   const [title, setTitle] = useState("talkScene");
+  const talkContextRef = useRef("");
   const [talkContext, setTalkContext] = useState("");
-  const [talker,setTalker]=useState("")
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    await fetch("http://127.0.0.1:8080/api/v1/game", {
-      method: "POST",
+  const [talker, setTalker] = useState("");
+  const [formData, setFormData] = useState(
+    info.scene_content ? info.scene_content : []
+  );
+
+  if (onSave) {
+    sumbitSave();
+    handelSave(false);
+  }
+
+  const sumbitSave = async () => {
+    const response = await fetch(POST_SCENE(info.id, info.level_id), {
+      credentials: "include",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title,
-        talkContext,
+        id: info.id,
+        scene_type: "talk",
+        scene_content: formData,
       }),
     });
   };
 
-  const reTitle = (params) => {
-    setTitle(params);
-    reviewTitle(params);
+  const handleAdd = () => {
+    setFormData([
+      ...formData,
+      {
+        talker: "",
+        talk_content: "",
+      },
+    ]);
   };
 
-  // return(
-  //   <div>{talk}</div>
-  // )
+  const handleChange = (index, value) => {
+    setFormData((prevFormData) =>
+      prevFormData.map((item, i) =>
+        i === index ? { ...item, talk_content: value } : item
+      )
+    );
+    handleAdd();
+  };
   return (
-    <Form className="mx-auto" onSubmit={submitHandler}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="輸入標題"
-          value={title}
-          onChange={(e) => reTitle(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label> 文本內容</Form.Label>
-        <textarea
-          name="postContent"
-          placeholder="輸入對話內容"
-          value={talkContext}
-          onChange={(e) => {
-            setTalkContext(e.target.value);
-          }}
-          rows={4}
-          cols={40}
-        />
-      </Form.Group>
-
-      <Button type="sumbit" variant="primary">
+    <Container>
+      {formData.map((item, index) => {
+        return (
+          <div key={index}>
+            <Select
+              defaultValue={item.talker}
+              value={item.talker}
+              onChange={(e) => {
+                setFormData((prevFormData) =>
+                  prevFormData.map((item, i) =>
+                    i === index ? { ...item, talker: e.target.value } : item
+                  )
+                );
+              }}
+              fullWidth
+              label="說話人物"
+            >
+              <MenuItem value="旁白">旁白</MenuItem>
+              <MenuItem value="角色A">角色A</MenuItem>
+              <MenuItem value="角色B">角色B</MenuItem>
+            </Select>
+            <TextField
+              defaultvalue={item.talk_content}
+              value={item.talk_content}
+              onChange={(e) => {
+                setFormData((prevFormData) =>
+                  prevFormData.map((item, i) =>
+                    i === index
+                      ? { ...item, talk_content: e.target.value }
+                      : item
+                  )
+                );
+              }}
+              fullWidth
+              label="對話內容"
+              multiline
+              rows={4}
+            />
+          </div>
+        );
+      })}
+      <Button variant="contained" color="primary" onClick={handleAdd}>
+        新增下句對話
+      </Button>
+      <Button variant="contained" color="primary" onClick={sumbitSave}>
         save
       </Button>
-    </Form>
+    </Container>
+    // </Dialog>
   );
 };
 

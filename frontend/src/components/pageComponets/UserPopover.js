@@ -11,6 +11,7 @@ import useUserInfo from "../../hook/useUserInfo";
 const UserPopover = ({ isLogin }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { userInfo, setUserInfo } = useUserInfo();
+  
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };

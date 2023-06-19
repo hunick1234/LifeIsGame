@@ -16,12 +16,6 @@ export const UserSidebarData = [
     icon: <IoIcons.IoIosPaper />,
     cName: "nav-text",
   },
-  {
-    title: "物件庫",
-    path: "./objects",
-    icon: <FaIcons.FaCartPlus />,
-    cName: "nav-text",
-  },
 
   {
     title: "用戶資訊",

@@ -1,0 +1,38 @@
+# This file contains the docker-compose instructions to run the application locally
+# It is split into three services: frontend, backend, and mongo
+# The frontend service is built from the Dockerfile in the frontend directory
+# The backend service is built from the Dockerfile in the backend directory
+# The mongo service is built from the mongo image in the Docker Hub registry
+# The frontend service is mapped to port 3000 on the host machine, which is the port that the React application runs on
+# The backend service is mapped to port 8080 on the host machine, which is the port that the Node.js application runs on
+# The mongo service is mapped to port 27017 on the host machine, which is the port that the MongoDB database runs on
+# The mongo service depends on the backend service, so the backend service will be started before the mongo service
+# The frontend service has two volumes: one that maps the frontend directory to the /app directory in the container, and one that maps the node_modules directory in the container to the node_modules directory in the frontend directory
+# The backend service has one volume that maps the backend directory to the /app directory in the container
+# The frontend and backend services have the stdin_open and tty options set to true, which allows you to use the docker-compose up command to start the containers in the foreground and see the console output from the frontend and backend applications
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    container_name: frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - 8080:8080
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - 27017:27017

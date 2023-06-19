@@ -7,11 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hunick1234/LIG/middleware/session"
 	"github.com/hunick1234/LIG/models"
+	"github.com/hunick1234/LIG/models/games"
 )
 
 func GetGameList(c *gin.Context) {
-	gameList, err := models.GetGames("game")
-
+	gameList, err := games.GetGames("game")
 	if err != nil {
 
 	}
@@ -23,7 +23,7 @@ func GetGameList(c *gin.Context) {
 
 func GetUserGameList(c *gin.Context) {
 	userid := models.GetUserID(session.GetSession(c))
-	gameInfo, err := models.GetUserGames("game", userid)
+	gameInfo, err := games.GetUserGames("game", userid)
 
 	if err != nil {
 
@@ -36,7 +36,7 @@ func GetUserGameList(c *gin.Context) {
 
 func GetGameInfo(c *gin.Context) {
 	gameid := c.Param("gameid")
-	gameInfo, err := models.GetGame("game", gameid)
+	gameInfo, err := games.GetGame("game", gameid)
 
 	if err != nil {
 
@@ -48,7 +48,7 @@ func GetGameInfo(c *gin.Context) {
 
 // create game
 func CreatGame(c *gin.Context) {
-	game := &models.Game{}
+	game := &games.Game{}
 	c.ShouldBindJSON(game)
 	game.CreatUserID = models.GetUserID(session.GetSession(c))
 	game.GameId = c.Param("gameID")
@@ -63,7 +63,7 @@ func CreatGame(c *gin.Context) {
 
 func DeleteGame(c *gin.Context) {
 	gameid := c.Param("gameID")
-	game := &models.Game{GameId: gameid}
+	game := &games.Game{GameId: gameid}
 
 	err := game.RemoveGame("game")
 	if err != nil {
@@ -77,7 +77,7 @@ func DeleteGame(c *gin.Context) {
 }
 func UpdateGame(c *gin.Context) {
 	gameid := c.Param("gameID")
-	game := &models.Game{GameId: gameid}
+	game := &games.Game{GameId: gameid}
 	c.ShouldBindJSON(game)
 	err := game.UpdateGame()
 	if err != nil {
@@ -90,13 +90,25 @@ func UpdateGame(c *gin.Context) {
 	})
 }
 
+func GetGameIntro(c *gin.Context) {
+	gameid := c.Param("gameid")
+	gameInfo, err := games.GetGame("game", gameid)
+
+	if err != nil {
+
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": gameInfo.Intro,
+	})
+}
+
 func RemoveGame() {
 
 }
 
 func GetLevels(c *gin.Context) {
 	gameID := c.Param("gameID")
-	levelList, err := models.GetLevels(gameID)
+	levelList, err := games.GetLevels(gameID)
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{
 			"error":   err,
@@ -111,7 +123,7 @@ func GetLevels(c *gin.Context) {
 
 // creat level
 func CreatLevel(c *gin.Context) {
-	level := &models.Level{}
+	level := &games.Level{}
 	c.ShouldBindJSON(level)
 	level.FatherID = c.Param("gameID")
 	level.LevelId = c.Param("levelID")
@@ -124,7 +136,7 @@ func CreatLevel(c *gin.Context) {
 }
 
 func DeleteLevel(c *gin.Context) {
-	level := &models.Level{}
+	level := &games.Level{}
 	level.FatherID = c.Param("gameID")
 	level.LevelId = c.Param("levelID")
 
@@ -148,7 +160,7 @@ func UpdateLevel(c *gin.Context) {
 func GetScenes(c *gin.Context) {
 	levelID := c.Param("levelID")
 
-	sceneList, err := models.GetScenesbyLevel(levelID)
+	sceneList, err := games.GetScenesbyLevel(levelID)
 
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{
@@ -164,7 +176,7 @@ func GetScenes(c *gin.Context) {
 
 func CreatScene(c *gin.Context) {
 	// levelID := c.Param("levelID")
-	scene := &models.Scene{}
+	scene := &games.Scene{}
 	c.ShouldBindJSON(scene)
 
 	scene.CreatScene()
@@ -174,7 +186,7 @@ func CreatScene(c *gin.Context) {
 }
 
 func DeleteScene(c *gin.Context) {
-	scene := &models.Scene{}
+	scene := &games.Scene{}
 	scene.FatherID = c.Param("levelID")
 	scene.SceneId = c.Param("sceneID")
 
@@ -193,7 +205,7 @@ func DeleteScene(c *gin.Context) {
 }
 
 func UpdateScene(c *gin.Context) {
-	scene := &models.Scene{}
+	scene := &games.Scene{}
 	c.ShouldBindJSON(scene)
 	scene.FatherID = c.Param("levelID")
 	scene.SceneId = c.Param("sceneID")
